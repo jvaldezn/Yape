@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yape.Application.DTOs\Yape.Application.DTOs.csproj" />
+    <ProjectReference Include="..\Yape.Application.Interfaces\Yape.Application.Interfaces.csproj" />
+    <ProjectReference Include="..\Yape.Domain.Entities\Yape.Domain.Entities.csproj" />
+    <ProjectReference Include="..\Yape.Infraestructure.Interfaces\Yape.Infrastructure.Interfaces.csproj" />
+    <ProjectReference Include="..\Yape.Transversal.Common\Yape.Transversal.Common.csproj" />
+  </ItemGroup>
+
+</Project>

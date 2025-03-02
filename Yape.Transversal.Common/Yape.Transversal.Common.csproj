@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yape.Application.DTOs\Yape.Application.DTOs.csproj" />
+    <ProjectReference Include="..\Yape.Domain.Entities\Yape.Domain.Entities.csproj" />
+    <ProjectReference Include="..\Yape.Infraestructure.Services\Yape.Infrastructure.Client.csproj" />
+  </ItemGroup>
+
+</Project>

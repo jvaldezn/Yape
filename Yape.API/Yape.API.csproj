@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>cf491771-482f-4d01-98b3-76c87c932528</UserSecretsId>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.11" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.9.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yape.Application.Interfaces\Yape.Application.Interfaces.csproj" />
+    <ProjectReference Include="..\Yape.Application.Services\Yape.Application.Services.csproj" />
+    <ProjectReference Include="..\Yape.Infraestructure.Interfaces\Yape.Infrastructure.Interfaces.csproj" />
+    <ProjectReference Include="..\Yape.Infraestructure.Services\Yape.Infrastructure.Client.csproj" />
+    <ProjectReference Include="..\Yape.Infrastructure.Factories\Yape.Infrastructure.Factories.csproj" />
+    <ProjectReference Include="..\Yape.Transversal.Mappings\Yape.Transversal.Mappings.csproj" />
+  </ItemGroup>
+
+</Project>

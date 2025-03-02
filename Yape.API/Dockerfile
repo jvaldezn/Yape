@@ -1,0 +1,39 @@
+# See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+# This stage is used when running from VS in fast mode (Default for Debug configuration)
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER $APP_UID
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+
+# This stage is used to build the service project
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["Yape.API/Yape.API.csproj", "Yape.API/"]
+COPY ["Yape.Application.Interfaces/Yape.Application.Interfaces.csproj", "Yape.Application.Interfaces/"]
+COPY ["Yape.Application.DTOs/Yape.Application.DTOs.csproj", "Yape.Application.DTOs/"]
+COPY ["Yape.Transversal.Common/Yape.Transversal.Common.csproj", "Yape.Transversal.Common/"]
+COPY ["Yape.Domain.Entities/Yape.Domain.Entities.csproj", "Yape.Domain.Entities/"]
+COPY ["Yape.Infraestructure.Services/Yape.Infrastructure.Client.csproj", "Yape.Infraestructure.Services/"]
+COPY ["Yape.Infraestructure.Interfaces/Yape.Infrastructure.Interfaces.csproj", "Yape.Infraestructure.Interfaces/"]
+COPY ["Yape.Application.Services/Yape.Application.Services.csproj", "Yape.Application.Services/"]
+COPY ["Yape.Infrastructure.Factories/Yape.Infrastructure.Factories.csproj", "Yape.Infrastructure.Factories/"]
+COPY ["Yape.Transversal.Mappings/Yape.Transversal.Mappings.csproj", "Yape.Transversal.Mappings/"]
+RUN dotnet restore "./Yape.API/Yape.API.csproj"
+COPY . .
+WORKDIR "/src/Yape.API"
+RUN dotnet build "./Yape.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# This stage is used to publish the service project to be copied to the final stage
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./Yape.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+# This stage is used in production or when running from VS in regular mode (Default when not using the Debug configuration)
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "Yape.API.dll"]

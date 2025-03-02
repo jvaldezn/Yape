@@ -1,0 +1,6 @@
+services:
+  yape.api:
+    image: ${DOCKER_REGISTRY-}yapeapi
+    build:
+      context: .
+      dockerfile: Yape.API/Dockerfile
